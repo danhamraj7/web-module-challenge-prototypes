@@ -14,7 +14,6 @@
     - Give instances of Person a method `.toString()`:
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
-
 function Person(name, age) {
   this.name = name;
   this.age = age;
@@ -35,7 +34,10 @@ Person.prototype.toString = function(){
   return `${this.name}, ${this.age}`
 }
 
-const Neo = new Person("Neo",20)
+const Neo = new Person(
+  "Neo",
+  20
+)
 
 
 /*
@@ -82,18 +84,36 @@ Car.prototype.drive = function(distance){
         + Should return a string "Playing with x", x being the favorite toy.
 */
 
-function Baby() {
+function Baby(name,age,favoriteToy) {
+ Person.call(this,name,age)
+ this.favoriteToy = favoriteToy
+} //tells Baby to inherit all the attributes of Person
 
+Baby.prototype = Object.create(Person.prototype) // tell Baby to inherit all the methods or Person
+
+Baby.prototype.play = function(){
+  return `"Playing with ${this.favoriteToy}"`
 }
-
 
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+
+  1. window binding - if none of the other rules apply the “this” defaults to the window unless if in strict mode it returns undefined.
+
+  2. Implicit binding 
+when the function is invoked, look to the left of the dot that will tell you what this is referring to .
+However this is only applies to object with methods.
+
+  3.explicit binding
+we can apply the this keyword using .call .bind .apply
+
+.call allows us to pass the arguments 1 by 1 and immediately invokes the function
+we use .call when we want to inherit attributes from another object. We could say that .call is the child and inherits all the attributes from the parent.
+
+  4. New bindings
+A CONSTRUCTOR FUNCTION BUILDS OBJECTS.
+when a constructor function is invoked this keyword points to the newly created object.
 */
 
 ///////// END OF CHALLENGE /////////
